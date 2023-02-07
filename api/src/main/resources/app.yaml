@@ -22,13 +22,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Cars"
+                $ref: "#/components/schemas/CarsDto"
         '500':
           description: Внутренняя ошибка сервера
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Error"
+                $ref: "#/components/schemas/ErrorDto"
     post:
       tags:
         - car
@@ -46,7 +46,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/Car"
+              $ref: "#/components/schemas/CarDto"
       responses:
         '204':
           description: Succes. No content.
@@ -55,19 +55,19 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Error"
+                $ref: "#/components/schemas/ErrorDto"
         '404':
           description: Car not found
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Error" 
+                $ref: "#/components/schemas/ErrorDto"
         '500':
           description: Внутренняя ошибка сервера
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Error"
+                $ref: "#/components/schemas/ErrorDto"
         
   
   /car/{carId}:
@@ -91,24 +91,25 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Error"
+                $ref: "#/components/schemas/ErrorDto"
         '400':
           description: Ошибка в запросе
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Error"
+                $ref: "#/components/schemas/ErrorDto"
         '500':
           description: Внутренняя ошибка сервера
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Error"
+                $ref: "#/components/schemas/ErrorDto"
           
     post:
       tags:
         - car
       summary: Добавление оказанной услуги к машине
+      operationId: addService
       parameters:
         - name: carId
           in: path
@@ -121,7 +122,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/Service"
+              $ref: "#/components/schemas/ServiceDto"
       responses:
         '204':
           description: Успешно
@@ -130,13 +131,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Error"
+                $ref: "#/components/schemas/ErrorDto"
         '500':
           description: Внутренняя ошибка сервера
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Error"
+                $ref: "#/components/schemas/ErrorDto"
   /car/{ownerId}:
     get:
       tags:
@@ -156,25 +157,25 @@ paths:
             content:
               application/json:
                 schema:
-                  $ref: "#/components/schemas/Car"
+                  $ref: "#/components/schemas/CarDto"
           '404':
             description: Машина не найдена
             content:
               application/json:
                 schema:
-                  $ref: "#/components/schemas/Error"
+                  $ref: "#/components/schemas/ErrorDto"
           '400':
             description: Ошибка в запросе
             content:
               application/json:
                 schema:
-                  $ref: "#/components/schemas/Error"
+                  $ref: "#/components/schemas/ErrorDto"
           '500':
             description: Внутренняя ошибка сервера
             content:
               application/json:
                 schema:
-                  $ref: "#/components/schemas/Error"
+                  $ref: "#/components/schemas/ErrorDto"
             
   /user:
     get:
@@ -187,13 +188,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Users"
+                $ref: "#/components/schemas/UsersDto"
         '500':
             description: Внутренняя ошибка сервера
             content:
               application/json:
                 schema:
-                  $ref: "#/components/schemas/Error"
+                  $ref: "#/components/schemas/ErrorDto"
     post:
       tags:
         - user
@@ -203,7 +204,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/CreateUser"
+              $ref: "#/components/schemas/CreateUserDto"
       responses:
           '204':
            description:  Успешно
@@ -212,19 +213,19 @@ paths:
             content:
               application/json:
                 schema:
-                  $ref: "#/components/schemas/Error"
+                  $ref: "#/components/schemas/ErrorDto"
           '400':
               description: Ошибка в запросе
               content:
                 application/json:
                   schema:
-                    $ref: "#/components/schemas/Error"
+                    $ref: "#/components/schemas/ErrorDto"
           '500':
             description: Внутренняя ошибка сервера
             content:
               application/json:
                 schema:
-                  $ref: "#/components/schemas/Error"
+                  $ref: "#/components/schemas/ErrorDto"
            
            
   /user/{userId}:
@@ -245,29 +246,29 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/User"
+                $ref: "#/components/schemas/UserDto"
         '404':
             description: Машина не найдена
             content:
               application/json:
                 schema:
-                  $ref: "#/components/schemas/Error"
+                  $ref: "#/components/schemas/ErrorDto"
         '400':
             description: Ошибка в запросе
             content:
               application/json:
                 schema:
-                  $ref: "#/components/schemas/Error"
+                  $ref: "#/components/schemas/ErrorDto"
         '500':
             description: Внутренняя ошибка сервера
             content:
               application/json:
                 schema:
-                  $ref: "#/components/schemas/Error"
+                  $ref: "#/components/schemas/ErrorDto"
         
 components:
   schemas:
-    Car:
+    CarDto:
       type: object
       properties:
         id:
@@ -309,16 +310,16 @@ components:
         services:
           type: array
           items:
-            $ref: "#/components/schemas/Service"
+            $ref: "#/components/schemas/ServiceDto"
         notes:
           type: string
           example: "Заметки об автомобиле"
           description: Заметки об автомобиле
-    Cars:
+    CarsDto:
       type: array
       items:
-        $ref: "#/components/schemas/Car"
-    User:
+        $ref: "#/components/schemas/CarDto"
+    UserDto:
       type: object
       properties:
         id:
@@ -340,13 +341,13 @@ components:
         vehicles:
           type: array
           items:
-            $ref: '#/components/schemas/Car'
+            $ref: '#/components/schemas/CarDto'
           description: Список машин, которые принадлежат пользователю
-    Users:
+    UsersDto:
       type: array
       items:
-        $ref: "#/components/schemas/User"
-    CreateUser:
+        $ref: "#/components/schemas/UserDto"
+    CreateUserDto:
       type: object
       properties:
         login:
@@ -368,7 +369,7 @@ components:
           type: string
           format: email
           description: Адрес электронной почты пользователя
-    Service:
+    ServiceDto:
       type: object
       properties:
         works:
@@ -397,7 +398,7 @@ components:
                 type: number
                 example: 2500
                 description: Cтоимость запчасти
-    Error:
+    ErrorDto:
       type: object
       properties:
         code:
