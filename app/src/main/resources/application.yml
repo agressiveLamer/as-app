@@ -2,11 +2,21 @@ server:
   port: 8081
 
 spring:
+  application:
+    name: as-app
   datasource:
     url: jdbc:postgresql://localhost:5432/demodb
-    driver-class-name: org.postgresql.Driver
-    username: demo
-    password: demo
-
+    hikari:
+      driver-class-name: org.postgresql.Driver
+      maximum-pool-size: 5
+      jdbc-url: ${spring.datasource.url}
+      username: demo
+      password: demo
+      schema: public
   jpa:
-    show-sql: false
+    hibernate:
+      ddl-auto: validate
+    show-sql: true
+    generate-ddl: true
+  flyway:
+    schemas: public
