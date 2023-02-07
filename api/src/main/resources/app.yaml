@@ -1,0 +1,418 @@
+openapi: 3.0.3
+info:
+  title: Клиентское приложение автосерсвиса OpenApi 3.0 спецификация
+  version: 0.0.1
+servers:
+  - url: https://localhost:8081/api/v3
+tags:
+  - name: car
+    description: Автомобили
+  - name: user
+    description: Пользователи
+paths:
+  /car:
+    get:
+      tags:
+        - car
+      summary: Получение списка всех автомобилией
+      operationId: getCars
+      responses:
+        '200':
+          description: Успешно
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Cars"
+        '500':
+          description: Внутренняя ошибка сервера
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    post:
+      tags:
+        - car
+      summary: Создание/обновление машины
+      operationId: saveCar
+      parameters:
+        - name: carId
+          in: query
+          required: false
+          description: Идентификатор автомобиля
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Car"
+      responses:
+        '204':
+          description: Succes. No content.
+        '400':
+          description: Ошибка в запросе
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        '404':
+          description: Car not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error" 
+        '500':
+          description: Внутренняя ошибка сервера
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        
+  
+  /car/{carId}:
+    delete:
+      tags:
+        - car
+      summary: Удаление автомобиля из БД
+      operationId: deleteCar
+      parameters:
+        - name: carId
+          in: path
+          required: true
+          description: Идентификатор автомобиля
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Успешно
+        '404':
+          description: Машина не найдена
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        '400':
+          description: Ошибка в запросе
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        '500':
+          description: Внутренняя ошибка сервера
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+          
+    post:
+      tags:
+        - car
+      summary: Добавление оказанной услуги к машине
+      parameters:
+        - name: carId
+          in: path
+          required: true
+          description: Идентификатор автомобиля
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Service"
+      responses:
+        '204':
+          description: Успешно
+        '400':
+          description: Ошибка в запросе
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        '500':
+          description: Внутренняя ошибка сервера
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /car/{ownerId}:
+    get:
+      tags:
+         - car
+      summary: Получение списка автомобилией по идентификатору владельца
+      parameters:
+          - name: ownerId
+            in: path
+            required: true
+            description: Идентификатор владельца
+            schema:
+              type: integer
+      operationId: getCarsByOwnerId
+      responses:
+          '200':
+            description: Succes
+            content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/Car"
+          '404':
+            description: Машина не найдена
+            content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/Error"
+          '400':
+            description: Ошибка в запросе
+            content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/Error"
+          '500':
+            description: Внутренняя ошибка сервера
+            content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/Error"
+            
+  /user:
+    get:
+      tags:
+        - user
+      summary: получение списка всех пользователей
+      responses:
+        '200':
+          description: Succes
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Users"
+        '500':
+            description: Внутренняя ошибка сервера
+            content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/Error"
+    post:
+      tags:
+        - user
+      summary: Создание/изменение пользователя
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateUser"
+      responses:
+          '204':
+           description:  Успешно
+          '404':
+            description: Пользователь не найден
+            content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/Error"
+          '400':
+              description: Ошибка в запросе
+              content:
+                application/json:
+                  schema:
+                    $ref: "#/components/schemas/Error"
+          '500':
+            description: Внутренняя ошибка сервера
+            content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/Error"
+           
+           
+  /user/{userId}:
+    get:
+      tags:
+        - user
+      summary: получение списка пользователя по идентификатору
+      parameters:
+        - name: userId
+          required: true
+          in: path
+          description: идентификатор пользователя
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Успешно
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+        '404':
+            description: Машина не найдена
+            content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/Error"
+        '400':
+            description: Ошибка в запросе
+            content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/Error"
+        '500':
+            description: Внутренняя ошибка сервера
+            content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/Error"
+        
+components:
+  schemas:
+    Car:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+          description: Идентификатор автомобоиля
+        make:
+          type: string
+          example: "Toyota"
+          description: Марка
+        model:
+          type: string
+          example: "Camry"
+          description: Модель
+        year:
+          type: integer
+          example: 2019
+          description: год выпуска
+        color:
+          type: string
+          example: "Red"
+          description: цвет автомобиля
+        vin:
+          type: string
+          example: "1FTEW1EP8KFA05452"
+          description: VIN
+        owner_id:
+          type: integer
+          example: 1
+          description: идентификатор владельца
+        registration_number:
+          type: string
+          example: "Н188УУ777"
+          description: госрег номер авто
+        mileage:
+          type: integer
+          example: 139000
+          description: Пробег
+        services:
+          type: array
+          items:
+            $ref: "#/components/schemas/Service"
+        notes:
+          type: string
+          example: "Заметки об автомобиле"
+          description: Заметки об автомобиле
+    Cars:
+      type: array
+      items:
+        $ref: "#/components/schemas/Car"
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Уникальный идентификатор пользователя
+        name:
+          type: string
+          description: Имя владельца
+        lastname:
+          type: string
+          description: Фамилия владельца
+        phoneNumber:
+          type: string
+          description: Контактный мобильный телефон
+        email:
+          type: string
+          format: email
+          description: Адрес электронной почты пользователя
+        vehicles:
+          type: array
+          items:
+            $ref: '#/components/schemas/Car'
+          description: Список машин, которые принадлежат пользователю
+    Users:
+      type: array
+      items:
+        $ref: "#/components/schemas/User"
+    CreateUser:
+      type: object
+      properties:
+        login:
+          type: string
+          description: логин пользоватя
+        password:
+          type: string
+          description: логин пользоватя
+        name:
+          type: string
+          description: Имя владельца
+        lastname:
+          type: string
+          description: Фамилия владельца
+        phoneNumber:
+          type: string
+          description: Контактный мобильный телефон
+        email:
+          type: string
+          format: email
+          description: Адрес электронной почты пользователя
+    Service:
+      type: object
+      properties:
+        works:
+          type: array
+          items:
+            type: object
+            properties:
+              describe:
+                type: string
+                example: Замена моторного масла
+                description: Описание услуги
+              cost:
+                type: number
+                example: 500
+                description: стоимость услуги
+        spares:
+          type: array
+          items:
+            type: object
+            properties:
+              describe:
+                type: string
+                example: shell helix ultra 5w40
+                description: Описание запчасти
+              cost:
+                type: number
+                example: 2500
+                description: Cтоимость запчасти
+    Error:
+      type: object
+      properties:
+        code:
+          type: integer
+          description: Код http ошибки
+        description:
+          type: string
+          description: Описание ошибки
+          
+          
+        
+
+
+
+
+        
+          
+          
