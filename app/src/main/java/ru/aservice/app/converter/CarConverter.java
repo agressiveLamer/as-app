@@ -5,11 +5,8 @@ import ru.aservice.app.api.model.CarDto;
 import ru.aservice.app.entity.Car;
 
 @Component
-public class CarConverter implements Mapper<CarDto, Car> {
+public class CarConverter  {
 
-    //TODO: доделать маппинг сервисных услуг
-
-    @Override
     public CarDto toDto(Car entity) {
         CarDto dto = new CarDto();
         dto.setColor(entity.getColor());
@@ -25,7 +22,6 @@ public class CarConverter implements Mapper<CarDto, Car> {
         return dto;
     }
 
-    @Override
     public Car toEntity(CarDto dto) {
         Car entity = new Car();
         entity.setColor(dto.getColor());
