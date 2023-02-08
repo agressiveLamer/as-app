@@ -16,7 +16,7 @@ spring:
   jpa:
     hibernate:
       ddl-auto: validate
-    show-sql: true
-    generate-ddl: true
+    show-sql: false
+    generate-ddl: false
   flyway:
     schemas: public

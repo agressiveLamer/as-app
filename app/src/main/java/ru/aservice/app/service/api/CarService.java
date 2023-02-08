@@ -1,17 +1,20 @@
 package ru.aservice.app.service.api;
 
 import ru.aservice.app.api.model.CarDto;
-import ru.aservice.app.api.model.ServiceDto;
+
+import java.util.List;
 
 public interface CarService {
 
     //TODO: привести нормальные типы возвращаемых объектов
 
-    void saveCar(CarDto carDto, Integer carId);
+    void saveCar(CarDto dto, Integer carId);
 
-    void saveService(Integer carId, ServiceDto serviceDto);
+    void deleteCar(Long carId);
 
-    void getOneByOwnerId(Integer ownerId);
+    List<CarDto> getCarByOwnerId(Integer ownerId);
 
-    void getAllCars();
+    List<CarDto> getAllCars();
+
+
 }

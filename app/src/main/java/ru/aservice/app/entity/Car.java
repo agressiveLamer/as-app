@@ -1,4 +1,4 @@
-package ru.aservice.app.service.entity;
+package ru.aservice.app.entity;
 
 import lombok.Setter;
 
@@ -18,7 +18,6 @@ public class Car extends BaseEntity {
     private List<User> ownerList;
     private String registrationNumber;
     private int mileage;
-    private List<Service> serviceList;
     private String notes;
 
     @Override
@@ -72,12 +71,6 @@ public class Car extends BaseEntity {
     public int getMileage() {
         return mileage;
     }
-
-    @OneToMany(fetch = FetchType.EAGER)
-    public List<Service> getServiceList() {
-        return serviceList;
-    }
-
 
     @Column(name = "notes")
     public String getNotes() {

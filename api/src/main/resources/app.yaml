@@ -68,8 +68,8 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ErrorDto"
-        
-  
+
+
   /car/{carId}:
     delete:
       tags:
@@ -104,7 +104,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ErrorDto"
-          
+
     post:
       tags:
         - car
@@ -141,42 +141,42 @@ paths:
   /car/{ownerId}:
     get:
       tags:
-         - car
+        - car
       summary: Получение списка автомобилией по идентификатору владельца
       parameters:
-          - name: ownerId
-            in: path
-            required: true
-            description: Идентификатор владельца
-            schema:
-              type: integer
+        - name: ownerId
+          in: path
+          required: true
+          description: Идентификатор владельца
+          schema:
+            type: integer
       operationId: getCarsByOwnerId
       responses:
-          '200':
-            description: Succes
-            content:
-              application/json:
-                schema:
-                  $ref: "#/components/schemas/CarDto"
-          '404':
-            description: Машина не найдена
-            content:
-              application/json:
-                schema:
-                  $ref: "#/components/schemas/ErrorDto"
-          '400':
-            description: Ошибка в запросе
-            content:
-              application/json:
-                schema:
-                  $ref: "#/components/schemas/ErrorDto"
-          '500':
-            description: Внутренняя ошибка сервера
-            content:
-              application/json:
-                schema:
-                  $ref: "#/components/schemas/ErrorDto"
-            
+        '200':
+          description: Succes
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CarsDto"
+        '404':
+          description: Машина не найдена
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+        '400':
+          description: Ошибка в запросе
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+        '500':
+          description: Внутренняя ошибка сервера
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+
   /user:
     get:
       tags:
@@ -190,11 +190,11 @@ paths:
               schema:
                 $ref: "#/components/schemas/UsersDto"
         '500':
-            description: Внутренняя ошибка сервера
-            content:
-              application/json:
-                schema:
-                  $ref: "#/components/schemas/ErrorDto"
+          description: Внутренняя ошибка сервера
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
     post:
       tags:
         - user
@@ -206,28 +206,28 @@ paths:
             schema:
               $ref: "#/components/schemas/CreateUserDto"
       responses:
-          '204':
-           description:  Успешно
-          '404':
-            description: Пользователь не найден
-            content:
-              application/json:
-                schema:
-                  $ref: "#/components/schemas/ErrorDto"
-          '400':
-              description: Ошибка в запросе
-              content:
-                application/json:
-                  schema:
-                    $ref: "#/components/schemas/ErrorDto"
-          '500':
-            description: Внутренняя ошибка сервера
-            content:
-              application/json:
-                schema:
-                  $ref: "#/components/schemas/ErrorDto"
-           
-           
+        '204':
+          description:  Успешно
+        '404':
+          description: Пользователь не найден
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+        '400':
+          description: Ошибка в запросе
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+        '500':
+          description: Внутренняя ошибка сервера
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+
+
   /user/{userId}:
     get:
       tags:
@@ -248,24 +248,24 @@ paths:
               schema:
                 $ref: "#/components/schemas/UserDto"
         '404':
-            description: Машина не найдена
-            content:
-              application/json:
-                schema:
-                  $ref: "#/components/schemas/ErrorDto"
+          description: Машина не найдена
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
         '400':
-            description: Ошибка в запросе
-            content:
-              application/json:
-                schema:
-                  $ref: "#/components/schemas/ErrorDto"
+          description: Ошибка в запросе
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
         '500':
-            description: Внутренняя ошибка сервера
-            content:
-              application/json:
-                schema:
-                  $ref: "#/components/schemas/ErrorDto"
-        
+          description: Внутренняя ошибка сервера
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+
 components:
   schemas:
     CarDto:
@@ -307,10 +307,6 @@ components:
           type: integer
           example: 139000
           description: Пробег
-        services:
-          type: array
-          items:
-            $ref: "#/components/schemas/ServiceDto"
         notes:
           type: string
           example: "Заметки об автомобиле"

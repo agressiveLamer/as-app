@@ -1,4 +1,4 @@
-package ru.aservice.app.service.entity;
+package ru.aservice.app.entity;
 
 
 import lombok.Setter;

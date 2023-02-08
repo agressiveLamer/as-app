@@ -1,15 +1,15 @@
-package ru.aservice.app.service.entity;
+package ru.aservice.app.entity;
 
 import lombok.Setter;
 
 import javax.persistence.*;
 
 @Entity
-@Table(schema = "public", name = "works")
+@Table(schema = "public", name = "spares")
 @Setter
-public class Work extends BaseEntity{
+public class Spare extends BaseEntity{
 
-    public Service service;
+    private Service service;
 
     @Override
     public Long getId() {
