@@ -17,9 +17,10 @@ create table public.car
 );
 create table public.service
 (
-    id      int8 not null,
-    created timestamp,
-    updated timestamp,
+    id               int8 not null,
+    created          timestamp,
+    updated          timestamp,
+    master_full_name varchar(255),
     primary key (id)
 );
 create table public.spares
@@ -27,6 +28,8 @@ create table public.spares
     id         int8 not null,
     created    timestamp,
     updated    timestamp,
+    cost       float8,
+    describe   varchar(255),
     service_id int8,
     primary key (id)
 );
@@ -48,6 +51,8 @@ create table public.works
     id         int8 not null,
     created    timestamp,
     updated    timestamp,
+    cost       float8,
+    describe   varchar(255),
     service_id int8,
     primary key (id)
 );

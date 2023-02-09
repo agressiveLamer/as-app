@@ -10,9 +10,14 @@ import javax.persistence.*;
 @Setter
 public class Service extends BaseEntity {
 
+    private String masterFullName;
+
     @Override
     public Long getId() {
         return super.getId();
     }
 
+    public String getMasterFullName() {
+        return masterFullName;
+    }
 }

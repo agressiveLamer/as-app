@@ -15,7 +15,6 @@ public class CarConverter  {
         dto.setModel(entity.getModel());
         dto.setId(entity.getId().intValue());
         dto.setNotes(entity.getNotes());
-        dto.setModel(entity.getModel());
         dto.setYear(entity.getYear());
         dto.setVin(entity.getVin());
         dto.setRegistrationNumber(entity.getRegistrationNumber());
@@ -29,7 +28,6 @@ public class CarConverter  {
         entity.setMileage(dto.getMileage());
         entity.setModel(dto.getModel());
         entity.setNotes(dto.getNotes());
-        entity.setModel(dto.getModel());
         entity.setYear(dto.getYear());
         entity.setVin(dto.getVin());
         entity.setRegistrationNumber(dto.getRegistrationNumber());

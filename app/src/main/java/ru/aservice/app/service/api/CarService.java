@@ -6,9 +6,7 @@ import java.util.List;
 
 public interface CarService {
 
-    //TODO: привести нормальные типы возвращаемых объектов
-
-    void saveCar(CarDto dto, Integer carId);
+    void saveCar(CarDto dto, Long carId);
 
     void deleteCar(Long carId);
 

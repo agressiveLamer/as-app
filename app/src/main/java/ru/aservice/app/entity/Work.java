@@ -7,9 +7,11 @@ import javax.persistence.*;
 @Entity
 @Table(schema = "public", name = "works")
 @Setter
-public class Work extends BaseEntity{
+public class Work extends BaseEntity {
 
     public Service service;
+    private String describe;
+    private Double cost;
 
     @Override
     public Long getId() {
@@ -19,5 +21,13 @@ public class Work extends BaseEntity{
     @ManyToOne(fetch = FetchType.LAZY)
     public Service getService() {
         return service;
+    }
+
+    public String getDescribe() {
+        return describe;
+    }
+
+    public Double getCost() {
+        return cost;
     }
 }

@@ -3,7 +3,7 @@ info:
   title: Клиентское приложение автосерсвиса OpenApi 3.0 спецификация
   version: 0.0.1
 servers:
-  - url: https://localhost:8081/api/v3
+  - url: http://localhost:8081
 tags:
   - name: car
     description: Автомобили
@@ -22,7 +22,9 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/CarsDto"
+                type: array
+                items:
+                  $ref: "#/components/schemas/CarDto"
         '500':
           description: Внутренняя ошибка сервера
           content:
@@ -105,39 +107,6 @@ paths:
               schema:
                 $ref: "#/components/schemas/ErrorDto"
 
-    post:
-      tags:
-        - car
-      summary: Добавление оказанной услуги к машине
-      operationId: addService
-      parameters:
-        - name: carId
-          in: path
-          required: true
-          description: Идентификатор автомобиля
-          schema:
-            type: integer
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/ServiceDto"
-      responses:
-        '204':
-          description: Успешно
-        '400':
-          description: Ошибка в запросе
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ErrorDto"
-        '500':
-          description: Внутренняя ошибка сервера
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ErrorDto"
   /car/{ownerId}:
     get:
       tags:
@@ -157,7 +126,9 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/CarsDto"
+                type: array
+                items:
+                  $ref: "#/components/schemas/CarDto"
         '404':
           description: Машина не найдена
           content:
@@ -188,7 +159,10 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/UsersDto"
+                type: array
+                items:
+                  $ref: "#/components/schemas/UserDto"
+
         '500':
           description: Внутренняя ошибка сервера
           content:
@@ -204,7 +178,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/CreateUserDto"
+              $ref: "#/components/schemas/UserDto"
       responses:
         '204':
           description:  Успешно
@@ -232,7 +206,7 @@ paths:
     get:
       tags:
         - user
-      summary: получение списка пользователя по идентификатору
+      summary: получение пользователя по идентификатору
       parameters:
         - name: userId
           required: true
@@ -311,41 +285,12 @@ components:
           type: string
           example: "Заметки об автомобиле"
           description: Заметки об автомобиле
-    CarsDto:
-      type: array
-      items:
-        $ref: "#/components/schemas/CarDto"
     UserDto:
       type: object
       properties:
         id:
           type: integer
           description: Уникальный идентификатор пользователя
-        name:
-          type: string
-          description: Имя владельца
-        lastname:
-          type: string
-          description: Фамилия владельца
-        phoneNumber:
-          type: string
-          description: Контактный мобильный телефон
-        email:
-          type: string
-          format: email
-          description: Адрес электронной почты пользователя
-        vehicles:
-          type: array
-          items:
-            $ref: '#/components/schemas/CarDto'
-          description: Список машин, которые принадлежат пользователю
-    UsersDto:
-      type: array
-      items:
-        $ref: "#/components/schemas/UserDto"
-    CreateUserDto:
-      type: object
-      properties:
         login:
           type: string
           description: логин пользоватя
@@ -403,13 +348,3 @@ components:
         description:
           type: string
           description: Описание ошибки
-          
-          
-        
-
-
-
-
-        
-          
-          
