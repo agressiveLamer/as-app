@@ -1,7 +1,17 @@
 server:
-  port: 8081
-
+  port: 0
 spring:
+  cloud:
+    consul:
+      host: localhost
+      port: 8500
+    discovery:
+      enabled: true
+      client:
+        health-indicator:
+          enabled: true
+          use-services-query: true
+          include-description: true
   application:
     name: as-app
   datasource:

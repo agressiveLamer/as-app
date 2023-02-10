@@ -1,4 +1,3 @@
-
 plugins {
     id 'java'
     id 'org.springframework.boot' version '2.7.8'
@@ -9,7 +8,6 @@ plugins {
 apply plugin: 'io.spring.dependency-management'
 apply plugin: 'application'
 mainClassName = 'ru.aservice.app.AsAppApplication'
-
 
 
 allprojects {
@@ -31,14 +29,16 @@ subprojects {
         implementation 'org.springframework.boot:spring-boot-starter-web'
         implementation 'org.springframework.boot:spring-boot-devtools'
         implementation 'org.springframework.boot:spring-boot-starter-validation'
-        implementation 'org.postgresql:postgresql:42.5.3'
-        implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+        implementation 'org.springframework.cloud:spring-cloud-consul-core:4.0.1'
+        implementation 'org.springframework.cloud:spring-cloud-starter-consul-discovery:3.1.1'
         testImplementation 'org.springframework.boot:spring-boot-starter-test'
         testImplementation 'org.junit.jupiter:junit-jupiter-api'
+        implementation 'org.springframework.boot:spring-boot-starter-actuator'
+
 
     }
 
-    group 'ru.aservice.app'
+    group 'ru.aservice'
 
     compileJava {
         sourceCompatibility = 11
@@ -53,12 +53,27 @@ subprojects {
     }
 }
 
+configure(project(':gateway')) {
+
+    dependencies {
+
+        implementation 'org.springframework.cloud:spring-cloud-starter-gateway:3.1.1'
+    }
+
+    jar {
+        enabled = false
+    }
+}
+
 configure(project(':app')) {
 
     dependencies {
         implementation(project(':api'))
         implementation 'org.flywaydb:flyway-core'
         implementation "com.zaxxer:HikariCP:"
+        implementation 'org.postgresql:postgresql:42.5.3'
+        implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+
     }
 
     jar {
@@ -68,7 +83,6 @@ configure(project(':app')) {
 
 
 configure(project(':api')) {
-    apply plugin: "java"
     apply plugin: "org.openapi.generator"
 
     jar {

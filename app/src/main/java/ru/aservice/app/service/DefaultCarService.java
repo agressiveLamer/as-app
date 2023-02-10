@@ -49,7 +49,7 @@ public class DefaultCarService implements CarService {
     }
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public List<CarDto> getCarByOwnerId(Integer ownerId) {
         if (ownerId == null) {
             throw new NullPointerException();
@@ -66,7 +66,7 @@ public class DefaultCarService implements CarService {
     }
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public List<CarDto> getAllCars() {
         return carRepository.findAll()
                 .stream()
